@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ფორმა</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+            background-color: #f4f4f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        input.valid {
+            background-color: #d4edda;
+        }
+        input.invalid {
+            background-color: #f8d7da;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            display: none;
+        }
+        .submit-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        .submit-btn:disabled {
+            background-color: #ddd;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<h1>რეგისტრაციის ფორმა</h1>
+
+<form id="registrationForm">
+    <label for="fullName">სრული სახელი</label>
+    <input type="text" id="fullName" name="fullName" required>
+    <div id="fullNameError" class="error">სრული სახელი უნდა შეიცავდეს მინიმუმ 3 ასოს და მხოლოდ ასოებს.</div>
+
+    <label for="email">ელ. ფოსტა</label>
+    <input type="email" id="email" name="email" required>
+    <div id="emailError" class="error">მიუღებელი ელ. ფოსტა.</div>
+
+    <label for="password">პაროლი</label>
+    <input type="password" id="password" name="password" required>
+    <div id="passwordError" class="error">პაროლი უნდა შეიცავდეს მინიმუმ 8 სიმბოლოს, ერთი დიდი ასო, ერთი რიცხვი და ერთი სპეციალური სიმბოლო.</div>
+
+    <label for="confirmPassword">პაროლის დადასტურება</label>
+    <input type="password" id="confirmPassword" name="confirmPassword" required>
+    <div id="confirmPasswordError" class="error">პაროლები არ ემთხვევა.</div>
+
+    <label for="age">ასაკი</label>
+    <input type="number" id="age" name="age" required>
+    <div id="ageError" class="error">თქვენ უნდა იყოთ 18 ან მეტი წლის.</div>
+
+    <button type="submit" class="submit-btn" disabled>გაგზავნა</button>
+</form>
+
+<script>
+    const form = document.getElementById('registrationForm');
+    const fullNameInput = document.getElementById('fullName');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirmPassword');
+    const ageInput = document.getElementById('age');
+    const submitButton = document.querySelector('.submit-btn');
+
+    function validateFullName() {
+        const value = fullNameInput.value;
+        const regex = /^[a-zA-Z\s]+$/;
+        if (value.length >= 3 && regex.test(value)) {
+            fullNameInput.classList.add('valid');
+            fullNameInput.classList.remove('invalid');
+            document.getElementById('fullNameError').style.display = 'none';
+        } else {
+            fullNameInput.classList.add('invalid');
+            fullNameInput.classList.remove('valid');
+            document.getElementById('fullNameError').style.display = 'block';
+        }
+    }
+
+    function validateEmail() {
+        const value = emailInput.value;
+        const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (regex.test(value)) {
+            emailInput.classList.add('valid');
+            emailInput.classList.remove('invalid');
+            document.getElementById('emailError').style.display = 'none';
+        } else {
+            emailInput.classList.add('invalid');
+            emailInput.classList.remove('valid');
+            document.getElementById('emailError').style.display = 'block';
+        }
+    }
+
+    function validatePassword() {
+        const value = passwordInput.value;
+        const regex = /^(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*]).{8,}$/;
+        if (regex.test(value)) {
+            passwordInput.classList.add('valid');
+            passwordInput.classList.remove('invalid');
+            document.getElementById('passwordError').style.display = 'none';
+        } else {
+            passwordInput.classList.add('invalid');
+            passwordInput.classList.remove('valid');
+            document.getElementById('passwordError').style.display = 'block';
+        }
+    }
+
+    function validateConfirmPassword() {
+        if (confirmPasswordInput.value === passwordInput.value) {
+            confirmPasswordInput.classList.add('valid');
+            confirmPasswordInput.classList.remove('invalid');
+            document.getElementById('confirmPasswordError').style.display = 'none';
+        } else {
+            confirmPasswordInput.classList.add('invalid');
+            confirmPasswordInput.classList.remove('valid');
+            document.getElementById('confirmPasswordError').style.display = 'block';
+        }
+    }
+
+    function validateAge() {
+        const value = ageInput.value;
+        if (value >= 18) {
+            ageInput.classList.add('valid');
+            ageInput.classList.remove('invalid');
+            document.getElementById('ageError').style.display = 'none';
+        } else {
+            ageInput.classList.add('invalid');
+            ageInput.classList.remove('valid');
+            document.getElementById('ageError').style.display = 'block';
+        }
+    }
+    function toggleSubmitButton() {
+        const isValid =
+            fullNameInput.classList.contains('valid') &&
+            emailInput.classList.contains('valid') &&
+            passwordInput.classList.contains('valid') &&
+            confirmPasswordInput.classList.contains('valid') &&
+            ageInput.classList.contains('valid');
+        submitButton.disabled = !isValid;
+    }
+
+    // Event listeners for real-time validation
+    fullNameInput.addEventListener('keyup', () => { validateFullName(); toggleSubmitButton(); });
+    emailInput.addEventListener('keyup', () => { validateEmail(); toggleSubmitButton(); });
+    passwordInput.addEventListener('keyup', () => { validatePassword(); toggleSubmitButton(); });
+    confirmPasswordInput.addEventListener('keyup', () => { validateConfirmPassword(); toggleSubmitButton(); });
+    ageInput.addEventListener('keyup', () => { validateAge(); toggleSubmitButton(); });
+
+    // Initialize validations on page load
+    validateFullName();
+    validateEmail();
+    validatePassword();
+    validateConfirmPassword();
+    validateAge();
+    toggleSubmitButton();
+</script>
+
+</body>
+</html>

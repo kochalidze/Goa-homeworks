@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Data Manager</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .form-container, .data-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+<body>
+
+<h1>User Data Manager</h1>
+
+<div class="form-container">
+    <h2>Add User</h2>
+    <form id="userForm">
+        <label for="firstName">First Name:</label>
+        <input type="text" id="firstName" required><br><br>
+
+        <label for="lastName">Last Name:</label>
+        <input type="text" id="lastName" required><br><br>
+
+        <label for="age">Age:</label>
+        <input type="number" id="age" required><br><br>
+
+        <label for="idNumber">ID Number:</label>
+        <input type="text" id="idNumber" required><br><br>
+
+        <label for="height">Height (cm):</label>
+        <input type="number" id="height" required><br><br>
+
+        <label for="description">Description:</label>
+        <textarea id="description" required></textarea><br><br>
+
+        <button type="submit">Add User</button>
+    </form>
+</div>
+
+<div class="data-container">
+    <h2>Users</h2>
+    <table id="userTable">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Age</th>
+                <th>ID Number</th>
+                <th>Height</th>
+                <th>Description</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    const form = document.getElementById('userForm');
+    const userTableBody = document.querySelector('#userTable tbody');
+
+    const users = JSON.parse(localStorage.getItem('users')) || [];
+
+    function generateEmail(firstName, lastName, age) {
+        const randomNum = Math.floor(Math.random() * 1000);
+        return `${firstName.toLowerCase()}.${lastName.toLowerCase()}${age}${randomNum}@example.com`;
+    }
+    function saveUsers() {
+        localStorage.setItem('users', JSON.stringify(users));
+    }
+    function renderUsers() {
+        userTableBody.innerHTML = '';
+        users.forEach(user => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td>${user.firstName}</td>
+                <td>${user.lastName}</td>
+                <td>${user.age}</td>
+                <td>${user.idNumber}</td>
+                <td>${user.height}</td>
+                <td>${user.description}</td>
+                <td>${user.email}</td>
+            `;
+            userTableBody.appendChild(row);
+        });
+    }
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+
+        const firstName = document.getElementById('firstName').value;
+        const lastName = document.getElementById('lastName').value;
+        const age = document.getElementById('age').value;
+        const idNumber = document.getElementById('idNumber').value;
+        const height = document.getElementById('height').value;
+        const description = document.getElementById('description').value;
+        const email = generateEmail(firstName, lastName, age);
+
+        const user = { firstName, lastName, age, idNumber, height, description, email };
+        users.push(user);
+        saveUsers();
+        renderUsers();
+
+        form.reset();
+    });
+
+    renderUsers();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="ka">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>კარტების დიზაინი</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .filters {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .filter-btn:hover {
+            background-color: #45a049;
+        }
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+        }
+        .card {
+            background-color: #fff;
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 200px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        .card-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .card-number {
+            font-size: 22px;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+        .card.hidden {
+            display: none;
+        }
+        .sorting-btns {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .sorting-btn {
+            padding: 10px 20px;
+            margin: 0 10px;
+            background-color: #008CBA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .sorting-btn:hover {
+            background-color: #007B8A;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="filters">
+        <button class="filter-btn" id="filterBtn">ფილტრაცია (მაღალი საშუალო)</button>
+    </div>
+
+    <div class="sorting-btns">
+        <button class="sorting-btn" id="sortAscBtn">რეიტინგი ზრდადობით</button>
+        <button class="sorting-btn" id="sortDescBtn">რეიტინგი შემცირებით</button>
+        <button class="sorting-btn" id="sortRandBtn">რენდომული სორტირება</button>
+    </div>
+
+    <div class="cards-container" id="cardsContainer">
+        <div class="card" data-rating="4.5">
+            <div class="card-title">კარტი 1</div>
+            <div class="card-number">35</div>
+        </div>
+        <div class="card" data-rating="2.3">
+            <div class="card-title">კარტი 2</div>
+            <div class="card-number">15</div>
+        </div>
+        <div class="card" data-rating="3.8">
+            <div class="card-title">კარტი 3</div>
+            <div class="card-number">45</div>
+        </div>
+        <div class="card" data-rating="4.0">
+            <div class="card-title">კარტი 4</div>
+            <div class="card-number">25</div>
+        </div>
+        <div class="card" data-rating="5.0">
+            <div class="card-title">კარტი 5</div>
+            <div class="card-number">60</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const filterBtn = document.getElementById("filterBtn");
+    const cardsContainer = document.getElementById("cardsContainer");
+    const cards = Array.from(cardsContainer.getElementsByClassName("card"));
+
+    // ფილიაქციის ფუნქცია
+    filterBtn.addEventListener("click", () => {
+        const avgRating = 4.0; // საშუალო რეიტინგი
+        cards.forEach(card => {
+            const rating = parseFloat(card.getAttribute("data-rating"));
+            if (rating < avgRating) {
+                card.classList.add("hidden");
+            } else {
+                card.classList.remove("hidden");
+            }
+        });
+    });
+
+    // რეიტინგის ზრდის მიხედვით სორტირება
+    document.getElementById("sortAscBtn").addEventListener("click", () => {
+        const sortedCards = cards.sort((a, b) => {
+            return parseFloat(a.getAttribute("data-rating")) - parseFloat(b.getAttribute("data-rating"));
+        });
+        cardsContainer.innerHTML = '';
+        sortedCards.forEach(card => cardsContainer.appendChild(card));
+    });
+
+    // რეიტინგის შემცირების მიხედვით სორტირება
+    document.getElementById("sortDescBtn").addEventListener("click", () => {
+        const sortedCards = cards.sort((a, b) => {
+            return parseFloat(b.getAttribute("data-rating")) - parseFloat(a.getAttribute("data-rating"));
+        });
+        cardsContainer.innerHTML = '';
+        sortedCards.forEach(card => cardsContainer.appendChild(card));
+    });
+
+    // რენდომული სორტირება
+    document.getElementById("sortRandBtn").addEventListener("click", () => {
+        const shuffledCards = cards.sort(() => 0.5 - Math.random());
+        cardsContainer.innerHTML = '';
+        shuffledCards.forEach(card => cardsContainer.appendChild(card));
+    });
+</script>
+
+</body>
+</html>
