@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: black;
+        }
+        .parent {
+            width: 800px;
+            height: 800px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 40px;
+            background-color: red;
+            border-radius: 15px;
+        }
+        input {
+            width: 80%;
+            height: 40px;
+            font-size: 30px;
+            color: white;
+        }
+        button{
+            width: 80%;
+            height: 40px;
+            font-size: 30px;
+            border-radius: 15px;
+            background-color: aliceblue;
+        }
+        button:hover {
+            background-color: rgb(168, 170, 171);
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="parent">
+        <input type="text" id="display" disabled>
+        <button onclick="calculator.appendValue('8')">8</button>
+        <button onclick="calculator.appendValue('9')">9</button>
+        <button onclick="calculator.appendValue('+')">+</button>
+        <button onclick="calculator.appendValue('-')">-</button>
+        <button onclick="calculator.appendValue('*')">*</button>
+        <button onclick="calculator.appendValue('/')">/</button>
+        <button class="equal" onclick="calculator.calculateResult()">=</button>
+    </div>
+
+<script>
+class Calculator {
+  constructor(displayElement) {
+    this.displayElement = displayElement;
+    this.clearDisplay();
+  }
+
+  appendValue(value) {
+    this.displayElement.value += value;
+  }
+
+  clearDisplay() {
+    this.displayElement.value = '';
+  }
+
+  calculateResult() {
+    try {
+      this.displayElement.value = eval(this.displayElement.value);
+    } catch (error) {
+      alert('არასწორი ფორმულა');
+      this.clearDisplay();
+    }
+  }
+}
+
+const displayElement = document.getElementById('display');
+const calculator = new Calculator(displayElement);
+
+</script>
+</body>
+</html>
