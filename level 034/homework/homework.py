@@ -59,7 +59,7 @@ def reverse_words(text):
 def factorial(n):
     word = 1
     if n < 0 or n > 12:
-        return Valuerror
+        return "Valuerror"
     else:
         for i in range(1, n+1):
             word *= i

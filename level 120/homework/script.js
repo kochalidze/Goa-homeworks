@@ -49,3 +49,26 @@ console.log(func)
 // მაგალითი:
 // მაქსიმალურისგასაღებები(new Map([['a', 5], ['b', 3], ['c', 5]])); 
 // // შედეგი: ['a', 'c']
+function maxKeys(map) {
+    let maxVal = -Infinity;
+    const keysWithMaxVal = [];
+    map.forEach(value => {
+        if (value > maxVal) {
+            maxVal = value;
+        }
+    });
+    map.forEach((value, key) => {
+        if (value === maxVal) {
+            keysWithMaxVal.push(key);
+        }
+    });
+
+    return keysWithMaxVal;
+}
+const exampleMap = new Map([
+    ['a', 5],
+    ['b', 3],
+    ['c', 5]
+]);
+const result = maxKeys(exampleMap);
+console.log(result);

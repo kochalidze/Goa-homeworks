@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			min-height: 100vh;
+			background-color: rgb(234, 234, 234);
+		}
+		button {
+			width: 400px;
+			height: 100px;
+			background-color: rgb(205, 205, 205);
+			border-radius: 50px;
+			font-size: 50px;
+			transition: transform 1s, background-color 1s;
+		}
+		button:hover {
+			transform: scale(1.1);
+			background-color: beige;
+		}
+		.divdiv {
+			width: 900px;
+			height: 700px;
+			border: 1px solid;
+			border-radius: 20px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			gap: 100px;
+			flex-direction: column;
+			background-color: antiquewhite;
+			box-shadow: 10px 10px 25px rgb(77, 77, 77);
+		}
+		#div1 {
+			font-size: 30px;
+		}
+	</style>
+</head>
+<body>
+	<!-- 2)შექმნათ ვებსაიტი სადაც გექნებათ ღილაკი და display-div. 
+	თქვენი მიზანია თითო ღილაკის დაკლიკებაზე გამოიტანოთ ხუმრობა. 
+	ღილაკის დაკლიკებამდე ასევე უნდა იყოს გამოტანილი რაიმე ხუმრობა. დიზაინი შეფასდება
+    string -->  <!-- 'https://v2.jokeapi.dev/joke/Any?safe-mode' -->
+
+	<div class="divdiv">
+		<button id="btn">Get joke</button>
+		<div id="div1"></div>
+	</div>
+
+	<script>
+		const btn = document.getElementById('btn');
+		btn.addEventListener('click', getJoke);
+
+		async function getJoke() {
+			try {
+				const res = await fetch('https://v2.jokeapi.dev/joke/Any?safe-mode');
+				const data = await res.json();
+				const div = document.getElementById('div1');
+				if (data.type === 'single') {
+					div.innerHTML = data.joke;
+				} else {
+					div.innerHTML = `${data.setup} <br> ${data.delivery}`;
+				}
+			} catch {
+				console.error(error);
+			}
+		}
+	</script>
+</body>
+</html>
