@@ -1,0 +1,146 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+.header {
+  width: 100%;
+  height: 100px;
+  background-color: rgb(245, 242, 251);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.header a {
+  text-decoration: none;
+  color: rgb(72, 72, 72);
+  font-size: 30px;
+  text-shadow: 2px 3px 5px;
+  transition: color 1s;
+}
+.header a:hover{
+  color: rgb(74, 2, 255);
+  transform: scale(2.05);
+}
+.translate {
+  padding: 10px 40px;
+  border-radius: 15px;
+  border: none;
+  background-color: rgb(181, 93, 245);
+  color: aliceblue;
+  font-size: 20px;
+  transition: transform 0.5s, background-color 0.5s;
+  box-shadow: 3px 2px 10px black;
+  font-style: italic;
+}
+.translate:hover {
+  transform: scale(1.03);
+  background-color: rgb(152, 72, 210);
+}
+
+/* main */
+.main {
+
+  background-color: rgb(225, 225, 228);
+}
+.mainTwo {
+  position: relative;
+  top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+.mainTwo .mainH1 {
+  font-style: italic;
+  color: rgb(89, 89, 90);
+  text-shadow: 3px 3px 5px;
+}
+.myFoto {
+  width: 300px;
+  border-radius: 200px;
+  box-shadow: 0px 0px 15px rgb(68, 141, 244);
+  transition: transform 0.5s;
+}
+.myFoto:hover {
+  transform: scale(1.02w);
+}
+.sectionDiv {
+  width: 100%;
+  height: 600px;
+  background-color: rgb(79, 151, 250);
+  border-top-right-radius: 60px;
+  border-top-left-radius: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  color: aliceblue;
+}
+.sectionDiv h1 {
+  font-size: 32px;
+  position: relative;
+  bottom: 100px;
+  color: aliceblue;
+  font-style: italic;
+  text-shadow: 4px 4px 5px rgb(91, 91, 91);
+}
+.sectionDiv p {
+  font-size: 22px;
+}
+.paragraps {
+  width: 800px;
+  height: 100px;
+  position: relative;
+  bottom: 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.conteiner {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+}
+.conteiner .div {
+  position: relative;
+  bottom: 180px;
+  width: 500px;
+  height: 650px;
+  background-color: rgb(203, 203, 203);
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  color: rgb(85, 85, 85);
+  box-shadow: 5px 5px 10px;
+}
+.conteiner .div h2 {
+  position: relative;
+  bottom: 50px;
+  right: 20px;
+  font-size: 30px;
+  font-style: italic;
+}
+.conteiner .div p{
+  width: 300px;
+  font-size: 20px;
+  position: relative;
+  bottom: 35px;
+}
+.conteiner .div h4{
+  width: 320px;
+  font-size: 20px;
+  position: relative;
+  bottom: 30px;
+  right: 20px;
+}
+.conteiner .div div {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
