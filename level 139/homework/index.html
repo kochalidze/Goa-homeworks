@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Countdown Timer</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
+  <h1 class="text-4xl font-bold mb-6">⏳ Countdown Timer</h1>
+
+  <input 
+    type="date" 
+    id="targetDate" 
+    class="mb-6 px-4 py-2 rounded bg-gray-800 border border-gray-600 focus:outline-none" 
+  />
+
+  <div id="countdown" class="text-3xl space-y-2 text-center">
+    <p><span id="days">0</span> Days</p>
+    <p><span id="hours">0</span> Hours</p>
+    <p><span id="minutes">0</span> Minutes</p>
+    <p><span id="seconds">0</span> Seconds</p>
+  </div>
+
+  <script src="script.js" type="module"></script>
+</body>
+</html>
